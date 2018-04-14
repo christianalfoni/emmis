@@ -4,10 +4,10 @@ import 'mocha';
 
 describe('ProxyChain', () => {
 	it('should run', () => {
-		expect(() => ProxyChain(() => {})).to.not.throw();
+		expect(() => ProxyChain(() => { })).to.not.throw();
 	});
 	it('should return promise when run', () => {
-		const chain = ProxyChain(() => {});
+		const chain = ProxyChain(() => { });
 		const doThis = chain();
 		expect(doThis()).to.be.instanceof(Promise);
 	});
@@ -17,7 +17,7 @@ describe('ProxyChain', () => {
 			foo: () => AppChain;
 			bar: () => AppChain;
 		}
-		const chain = ProxyChain<AppChain>(() => {});
+		const chain = ProxyChain<AppChain>(() => { });
 
 		expect(() => chain<AppChain>().set()).to.not.throw();
 		expect(() => chain<AppChain>().foo()).to.not.throw();
@@ -62,7 +62,7 @@ describe('ProxyChain', () => {
 		});
 		const doThis = chain<ProxyChain<string>>().map((p) => p.toUpperCase()).map((p) => p.split(''));
 
-		return doThis('foo').then((value) => expect(value).to.be.deep.equal([ 'F', 'O', 'O' ]));
+		return doThis('foo').then((value) => expect(value).to.be.deep.equal(['F', 'O', 'O']));
 	});
 	it('should handle using new chain as callback', () => {
 		interface ProxyChain<Current, Initial = Current> extends IProxyChain<Current, Initial> {
@@ -87,8 +87,8 @@ describe('ProxyChain', () => {
 				true: chain<ProxyChain<string>>(),
 				false: chain<ProxyChain<string>>()
 			})
-			.map((p) => Number(p));
+			.map((p) => p.split(''));
 
-		return doThis('foo').then((value) => expect(value).to.be.deep.equal([ 'F', 'O', 'O' ]));
+		return doThis('foo').then((value) => expect(value).to.be.deep.equal(['F', 'O', 'O']));
 	});
 });
