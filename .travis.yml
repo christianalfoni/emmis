@@ -1,0 +1,13 @@
+# build
+vuepress build docs
+
+# navigate into the build output directory
+cd docs/.vuepress/dist
+
+git init
+git add -A
+git commit -m 'deploy'
+
+# push to the gh-pages branch of your repo.
+# replace <USERNAME>/<REPO> with your info
+git push -f git@github.com:christianalfoni/emmis.git master:gh-pages

@@ -4,7 +4,9 @@
 	"description": "Create a chaining API for your application",
 	"main": "lib/index.js",
 	"scripts": {
-		"prepare": "npm run build",
+		"prepare": "npm run build && npm run docs:build",
+		"docs:dev": "vuepress dev docs",
+		"docs:build": "vuepress build docs",
 		"build": "tsc",
 		"test": "mocha -r ts-node/register tests/*.ts"
 	},
@@ -30,6 +32,7 @@
 		"chai": "^4.1.2",
 		"mocha": "^5.1.0",
 		"ts-node": "^5.0.1",
-		"typescript": "^2.8.1"
+		"typescript": "^2.8.1",
+		"vuepress": "^0.3.0"
 	}
 }
