@@ -1,13 +1,12 @@
 module.exports = {
   title: 'Emmis',
   description: 'Create a chaining API for your application',
-  dest: 'vuepress',
   head: [
     ['link', { rel: 'icon', href: `/logo.png` }]
   ],
   serviceWorker: true,
   themeConfig: {
-    repo: 'vuejs/vuepress',
+    repo: 'christianalfoni/emmis',
     editLinks: true,
     docsDir: 'docs',
     nav: [
