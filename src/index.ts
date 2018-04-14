@@ -4,6 +4,7 @@ export interface IProxyChain<O = {}, I = {}> {
 
 export interface IOperator<Operators> {
 	type: keyof Operators;
+	context: any;
 	args: any[];
 }
 
@@ -12,15 +13,16 @@ export function ProxyChain<Operators extends IProxyChain>(
 ) {
 	return function createProxy<P extends IProxyChain>(): P {
 		const tasks = [];
-		const handler = (payload?) => {
+		const handler = function (payload?) {
 			const nextPayload = tasks.reduce((currentPayload, task) => {
+				const populatedTask = { ...task, context: this }
 				if (currentPayload instanceof Promise) {
 					return currentPayload.then(
-						(promisedPayload) => (reducer ? reducer(promisedPayload, task) : promisedPayload)
+						(promisedPayload) => (reducer ? reducer(promisedPayload, populatedTask) : promisedPayload)
 					);
 				}
 
-				return reducer ? reducer(currentPayload, task) : currentPayload;
+				return reducer ? reducer(currentPayload, populatedTask) : currentPayload;
 			}, payload);
 
 			return nextPayload instanceof Promise ? nextPayload : Promise.resolve(nextPayload);

@@ -91,4 +91,16 @@ describe('ProxyChain', () => {
 
 		return doThis('foo').then((value) => expect(value).to.be.deep.equal(['F', 'O', 'O']));
 	});
+	it('should receive context of chain', () => {
+		interface AppChain extends IProxyChain {
+			set: () => AppChain;
+		}
+		const chain = ProxyChain<AppChain>((payload, operator) => {
+			expect(operator.context).to.be.equal('foo')
+		});
+
+		const doThis = chain<AppChain>().set()
+
+		doThis.call('foo')
+	});
 });
