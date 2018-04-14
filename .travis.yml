@@ -1,11 +1,10 @@
 language: node_js
-node_js:
-  - "7"
+node_js: '8'
 cache:
   directories:
   - node_modules
 after_success:
-  - |
+- |
   vuepress build docs
   cd docs/.vuepress/dist
   git init
