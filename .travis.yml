@@ -4,11 +4,11 @@ node_js:
 cache:
   directories:
   - node_modules
- after_success:
-- |
-vuepress build docs
-cd docs/.vuepress/dist
-git init
-git add -A
-git commit -m 'deploy'
-git push -f git@github.com:christianalfoni/emmis.git master:gh-pages
+after_success:
+  - |
+  vuepress build docs
+  cd docs/.vuepress/dist
+  git init
+  git add -A
+  git commit -m 'deploy'
+  git push -f git@github.com:christianalfoni/emmis.git master:gh-pages
