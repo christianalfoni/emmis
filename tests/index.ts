@@ -84,7 +84,7 @@ describe('ProxyChain', () => {
 		});
 		const doThis = chain<ProxyChain<string>>()
 			.when(() => 'true', {
-				true: chain<ProxyChain<string>>(),
+				true: chain<ProxyChain<string>>().map(p => p.toUpperCase()),
 				false: chain<ProxyChain<string>>()
 			})
 			.map((p) => p.split(''));
