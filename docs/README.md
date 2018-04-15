@@ -7,8 +7,8 @@ features:
   details: Only 40 lines of code gives you a ton of flexibility
 - title: Flexible
   details: Convert any application logic into a chain
-- title: Specific
-  details: You define the chain operators, be as domain specific as you want!
+- title: Debuggable
+  details: See flow of execution with all the details
 footer: MIT Licensed | Copyright © 2018-present Christian Alfoni
 ---
 

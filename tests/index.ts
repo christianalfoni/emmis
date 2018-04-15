@@ -103,4 +103,22 @@ describe('ProxyChain', () => {
 
 		doThis.call('foo')
 	});
+	it('should be able to name and add debug information to execution ', () => {
+		interface ProxyChain<Current, Initial = Current> extends IProxyChain<Current, Initial> {
+			map: <Output>(cb: (p: Current) => Output) => ProxyChain<Output, Initial>;
+		}
+		const chain = ProxyChain<ProxyChain<any, any>>((payload, operator) => {
+			switch (operator.type) {
+				case 'map':
+					const returnValue = operator.args[0](payload)
+					operator.debug(returnValue)
+					return returnValue
+			}
+
+			return payload;
+		});
+		const doThis = chain<ProxyChain<string>>('named').map((p) => p.toUpperCase()).map((p) => p.split(''));
+
+		return doThis('foo').then((value) => expect(value).to.be.deep.equal(['F', 'O', 'O']));
+	});
 });
