@@ -4,7 +4,7 @@
 	"description": "Create a chaining API for your application",
 	"main": "lib/index.js",
 	"scripts": {
-		"prepare": "npm run build && npm run docs:build",
+		"prepare": "npm run build",
 		"docs:dev": "vuepress dev docs",
 		"docs:build": "vuepress build docs",
 		"build": "tsc",
