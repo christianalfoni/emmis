@@ -1,6 +1,6 @@
 {
 	"name": "emmis",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "Create a chaining API for your application",
 	"main": "lib/index.js",
 	"scripts": {
@@ -14,12 +14,7 @@
 		"type": "git",
 		"url": "git+https://github.com/christianalfoni/emmis.git"
 	},
-	"keywords": [
-		"chain",
-		"async",
-		"proxy",
-		"api"
-	],
+	"keywords": [ "chain", "async", "proxy", "api" ],
 	"author": "Christian Alfoni",
 	"license": "MIT",
 	"bugs": {

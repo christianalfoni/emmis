@@ -14,7 +14,7 @@ footer: MIT Licensed | Copyright © 2018-present Christian Alfoni
 
 # Why?
 
-When we write application logic we import different dependencies into the files that expresses this logic. For example:
+When we write application logic we import different dependencies into the files that expresses our application logic. For example:
 
 ```js
 import axios from 'axios'
@@ -42,7 +42,7 @@ With **Emmis** this type of code can be cleaned up like this:
 ```js
 import chain from './chain'
 
-export const getUser = chain()
+export const getUser = chain('getUser')
   .http('get', '/user', {
     success: chain()
       .map(response => response.data),
@@ -51,4 +51,12 @@ export const getUser = chain()
   })
 ```
 
-It allows you to move all side effect utilities and helpers you use in your code behind a chaining API. Chaining APIs encourages functional code and generally makes your code more declarative. In addition to this you can express complex asynchronous flows as well.
+You will also see the console log out something like:
+
+```sh
+> getUser
+  http { method: 'get', url: '/user', path: 'success' }
+  map { id: '1', name: 'John' }
+```
+
+So to summarize this approach allows you to move all side effect utilities and helpers you use in your code behind a chaining API that debugs for you. Chaining APIs encourages functional code and generally makes your code more declarative. In addition to this you can express complex asynchronous flows as well. The greatest benefit though is that **you decide** how the chaining API should look and operate.

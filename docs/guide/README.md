@@ -70,4 +70,41 @@ const chain = ProxyChain(chainReducer)
 
 With the **delay** we return a promise that resolves using a *setTimeout*. The timeout value is grabbed from the first argument passed to the delay operator.
 
-This is all there is to it. Move on to example operators that you can build in your application or come up with your own. Whatever makes sense for the application and libraries you use.
+## Debug
+
+All named chains will be log debugging information. You can provide additional data to this logging. Let us look at an example of adding debugging information to a **map** operator:
+
+```js
+import { ProxyChain } from 'emmis'
+
+const chainReducer = (payload, operator) => {
+  switch (operator.type) {
+    case 'map': 
+      const mappedResult = operator.args[0](payload)
+      operator.debug({
+        input: payload,
+        output: mappedResult
+      })
+      return mappedResult
+  }
+  return payload
+}
+
+const chain = ProxyChain(chainReducer)
+```
+
+Now when the **map** operator runs for example like this:
+
+```js
+const someChain = chain('someChain')
+  .map(input => input.toUpperCase())
+
+someChain('foo')
+```
+
+It will output the following:
+
+```sh
+> someChain
+  map { input: "foo", output: "FOO" }
+```
