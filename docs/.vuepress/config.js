@@ -13,14 +13,6 @@ module.exports = {
       {
         text: 'Guide',
         link: '/guide/',
-      },
-      {
-        text: 'Config Reference',
-        link: '/config/'
-      },
-      {
-        text: 'Default Theme Config',
-        link: '/default-theme-config/'
       }
     ],
     sidebar: {
@@ -29,7 +21,9 @@ module.exports = {
           title: 'Guide',
           collapsable: false,
           children: [
-            ''
+            '',
+            'how-it-works',
+            'operators'
           ]
         }
       ]

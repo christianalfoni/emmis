@@ -33,6 +33,6 @@
 		"mocha": "^5.1.0",
 		"ts-node": "^5.0.1",
 		"typescript": "^2.8.1",
-		"vuepress": "^0.3.0"
+		"vuepress": "^0.3.1"
 	}
 }

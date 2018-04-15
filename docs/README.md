@@ -2,35 +2,53 @@
 home: true
 actionText: Get Started →
 actionLink: /guide/
+features:
+- title: Super tiny
+  details: Only 40 lines of code gives you a ton of flexibility
+- title: Flexible
+  details: Convert any application logic into a chain
+- title: Specific
+  details: You define the chain operators, be as domain specific as you want!
 footer: MIT Licensed | Copyright © 2018-present Christian Alfoni
 ---
 
-[[TOC]]
+# Why?
 
-### Example: Redux
+When we write application logic we import different dependencies into the files that expresses this logic. For example:
 
-``` js
-const loadApplication = chain()
-  .dispatch(APP_LOADING)
-  .http('get', '/user', {
-    success: chain()
-      .dispatch(APP_LOADED_SUCCESS),
-    error: chain()
-      .dispatch(APP_LOADED_ERROR)
+```js
+import axios from 'axios'
+import { withBaseUrl, encodeQuery, withDefaultHeaders } from './utils'
+import { error } from './services'
+
+export const getUser = (queryParams) => {
+  const url = withBaseUrl('/user')
+  const query = encodeQuery(queryParams)
+
+  return axios.get(url, {
+    headers: withDefaultHeaders()
   })
-```
-
-### Example: React
-
-``` js
-class MyComponent extends React.Component {
-  componentDidMount = chain()
-    .setState({ isLoading: true })
-    .http('get', '/user', {
-      success: chain()
-        .setState(user => ({ user, isLoading: false })),
-      error: chain()
-        .setState(error => ({ error, isLoading: false })),
+    .then((response) => {
+      return response.data
+    })
+    .catch((responseError) => {
+      error.track(responseError)
     })
 }
 ```
+
+With **Emmis** this type of code can be cleaned up like this:
+
+```js
+import chain from './chain'
+
+export const getUser = chain()
+  .http('get', '/user', {
+    success: chain()
+      .map(response => response.data),
+    error: chain()
+      .trackError()
+  })
+```
+
+It allows you to move all side effect utilities and helpers you use in your code behind a chaining API. Chaining APIs encourages functional code and generally makes your code more declarative. In addition to this you can express complex asynchronous flows as well.
